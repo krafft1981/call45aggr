@@ -1,0 +1,78 @@
+#!/bin/bash
+# chkconfig: 345 99 01
+
+. /etc/init.d/functions
+
+
+
+prog=call45aggr
+prefix=/opt/$prog
+confdir=$prefix/conf
+
+lockfile=/var/lock/subsys/$prog
+pidfile=/var/run/$prog.pid
+
+OPTIONS=
+
+# User-defined options and/or overrides of the variables,
+# listed above, should go there:
+[ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
+
+RETVAL=0
+
+start() {
+        echo -n $"Starting $prog: "
+
+	ulimit -c unlimited >/dev/null
+
+        if pidofproc -p $pidfile > /dev/null 2>&1 ; then
+                echo -n "already running" && warning && echo
+                return 0
+        fi
+
+        $prefix/bin/$prog $confdir/$prog.json > /dev/null &
+        [ "$?" -eq 0 ] && success $"$base startup" || failure $"$base startup"
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && touch $lockfile
+        return $RETVAL
+}
+
+stop() {
+        echo -n $"Stopping $prog: "
+
+        if ! pidofproc -p $pidfile > /dev/null 2>&1 ; then
+                echo -n "not running" && warning && echo
+                return 0
+        fi
+
+        killproc -p $pidfile $prog
+        RETVAL=$?
+        echo
+        [ $RETVAL = 0 ] && rm -f $lockfile $pidfile
+        return $RETVAL
+}
+
+
+# See how we were called.
+case "$1" in
+        start)
+                start
+                ;;
+        stop)
+                stop
+                ;;
+        status)
+                status -p $pidfile $prog
+                RETVAL=$?
+                ;;
+        restart)
+                stop
+                start
+                ;;
+        *)
+                echo "Usage: $0 {start|stop|restart|status}"
+                RETVAL=2
+esac
+
+exit $RETVAL

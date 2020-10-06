@@ -1,0 +1,3 @@
+check process call45aggr with pidfile /var/run/call45aggr.pid
+    start program = "/etc/init.d/call45aggr start"
+    stop program = "/etc/init.d/call45aggr stop"

@@ -1,0 +1,32 @@
+{
+    "web_port" : 8080,
+    "threads_count" : 1,
+    "instance_id" : 1,
+    "instance_name" : "call45aggr",
+    "max_call_time" : 10800,
+    "table_reload_time" : 60,
+    "max_queue_size" : 1000000,
+    "db" : {
+        "output_connection_string" : "host=10.252.0.79 dbname=dima user=dima password= options='--search_path=public'",
+        "source_connection_string" : "host=eridanus3.mcn.ru dbname=nispd user=pgsqltest password=s3QK23Dwc4ZPnpbrNfeB7gmLmML options='--search_path=vpbx'",
+        "online_connection_string" : [
+            "host=ekbast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=krdast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=nnvast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=vlvast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=kznast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=nskast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=spbast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'",
+            "host=bdpast.mcn.ru dbname=vpbx user=call_leg_monitor password=aI0bwsX0c7ya2OW options='--search_path=vpbx'"
+        ],
+        "sql_insert_buffer_size" : 52428800,
+        "read_threshold_second"  : 60,
+        "read_waiting_second"    : 900
+    },
+    "log" : {
+        "file" : "call45aggr.log",
+        "graylog_host": "85.94.32.166",
+        "graylog_source" : "test_srv",
+        "level" : "INFO"
+    }
+}

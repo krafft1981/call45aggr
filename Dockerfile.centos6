@@ -1,0 +1,22 @@
+FROM centos:6
+
+USER root
+
+RUN yum -y update
+RUN yum -y install epel-release centos-release-scl-rh
+RUN yum -y update
+RUN yum -y install cmake3 make mc git
+RUN ln /usr/bin/cmake3 /usr/bin/cmake
+RUN yum -y install devtoolset-7-gcc devtoolset-7-binutils devtoolset-7-gcc-c++ devtoolset-7-libasan-devel
+RUN yum -y install https://centos6.iuscommunity.org/ius-release.rpm
+RUN yum -y install python-pip curl-devel postgresql-devel
+RUN yum -y install python36u python36u-devel python36u-pip
+RUN pip3.6 install --upgrade pip
+RUN pip3.6 install requests psycopg2-binary conan
+RUN yum -y install rpm-build
+
+RUN scl enable devtoolset-7 bash
+
+WORKDIR /home
+
+CMD ["scl","enable","devtoolset-7","bash"]
